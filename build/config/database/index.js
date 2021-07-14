@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const chalk_1 = __importDefault(require("chalk"));
 const env_1 = __importDefault(require("../../config/env"));
-const connectionString = `${env_1.default.DB_URI}/${env_1.default.DB_NAME}${env_1.default.DB_CONNECTION_OPTION}`;
+const connectionOptions = '?retryWrites=true&w=majority';
+const connectionString = `${env_1.default.DB_URI}/${env_1.default.DB_NAME}${connectionOptions}`;
+console.info('cstring: ', connectionString);
 mongoose_1.default
     .connect(connectionString, {
     useNewUrlParser: true,
@@ -19,8 +21,8 @@ mongoose_1.default
     .catch((e) => {
     console.log(chalk_1.default.inverse.red('Unable to connect to the database', e));
 });
-mongoose_1.default.connection.on('error', (error) => {
-    console.log(chalk_1.default.inverse.red('Database connectionerror' + error));
+mongoose_1.default.connection.on('error', (err) => {
+    console.log(chalk_1.default.inverse.red('Database connectionerror' + err));
 });
 process.on('SIGINT', () => {
     mongoose_1.default.connection.close(() => {

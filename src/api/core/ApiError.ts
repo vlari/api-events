@@ -61,7 +61,7 @@ export class BadRequestError extends ApiError {
 }
 
 export class NotFoundError extends ApiError {
-    constructor(message = 'Not') {
+    constructor(message = 'Not Found') {
         super(ErrorType.Bad_Request, message);
     }
 }
@@ -72,3 +72,8 @@ export class NoDataError extends ApiError {
     }
 }
 
+export class AccessTokenError extends ApiError {
+    constructor(message = 'Invalid access token') {
+        super(ErrorType.Access_token, message);
+    }
+}

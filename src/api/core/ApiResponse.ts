@@ -12,7 +12,7 @@ enum ResponseStatus {
 abstract class ApiResponse {
     constructor(
         protected statusCode: ResponseStatus,
-        protected messaage: string
+        protected message: string
     ) {}
 
     protected prepare<T extends ApiResponse>(res: Response, response: T): Response {
@@ -77,5 +77,15 @@ export class SuccessResponse<T> extends ApiResponse {
 
     send(res: Response): Response {
         return super.prepare<SuccessResponse<T>>(res, this);
+    }
+}
+
+export class AccessTokenErrorResponse extends ApiResponse {
+    constructor(message = 'Invalid access token') {
+        super(ResponseStatus.UNAUTHORIZED, message);
+    }
+
+    send(res: Response): Response {
+        return super.prepare<AccessTokenErrorResponse>(res, this);
     }
 }

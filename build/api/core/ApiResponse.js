@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SuccessResponse = exports.SuccessMessageResponse = exports.InternalErrorResponse = exports.BadRequestResponse = exports.NotFoundResponse = exports.AuthFailureResponse = void 0;
+exports.AccessTokenErrorResponse = exports.SuccessResponse = exports.SuccessMessageResponse = exports.InternalErrorResponse = exports.BadRequestResponse = exports.NotFoundResponse = exports.AuthFailureResponse = void 0;
 var ResponseStatus;
 (function (ResponseStatus) {
     ResponseStatus[ResponseStatus["SUCCES"] = 200] = "SUCCES";
@@ -11,9 +11,9 @@ var ResponseStatus;
     ResponseStatus[ResponseStatus["INTERNALSERVER"] = 500] = "INTERNALSERVER";
 })(ResponseStatus || (ResponseStatus = {}));
 class ApiResponse {
-    constructor(statusCode, messaage) {
+    constructor(statusCode, message) {
         this.statusCode = statusCode;
-        this.messaage = messaage;
+        this.message = message;
     }
     prepare(res, response) {
         return res.status(this.statusCode).json(ApiResponse.sanitize(response));
@@ -77,3 +77,12 @@ class SuccessResponse extends ApiResponse {
     }
 }
 exports.SuccessResponse = SuccessResponse;
+class AccessTokenErrorResponse extends ApiResponse {
+    constructor(message = 'Invalid access token') {
+        super(ResponseStatus.UNAUTHORIZED, message);
+    }
+    send(res) {
+        return super.prepare(res, this);
+    }
+}
+exports.AccessTokenErrorResponse = AccessTokenErrorResponse;

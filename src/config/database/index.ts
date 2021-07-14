@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 import chalk from 'chalk';
 import venv from '../../config/env';
 
-const connectionString = `${venv.DB_URI}/${venv.DB_NAME}${venv.DB_CONNECTION_OPTION}`;
+const connectionOptions = '?retryWrites=true&w=majority';
+const connectionString = `${venv.DB_URI}/${venv.DB_NAME}${connectionOptions}`;
+
+console.info('cstring: ', connectionString);
 
 mongoose
   .connect(connectionString, {

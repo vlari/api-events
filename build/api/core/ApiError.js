@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NoDataError = exports.NotFoundError = exports.BadRequestError = exports.InternalError = exports.AuthFailureError = exports.ApiError = void 0;
+exports.AccessTokenError = exports.NoDataError = exports.NotFoundError = exports.BadRequestError = exports.InternalError = exports.AuthFailureError = exports.ApiError = void 0;
 const env_1 = __importDefault(require("../../config/env"));
 const ApiResponse_1 = require("./ApiResponse");
 var ErrorType;
@@ -22,20 +22,20 @@ class ApiError extends Error {
         this.type = type;
         this.message = message;
     }
-    static handle(error, res) {
-        switch (error.type) {
+    static handle(err, res) {
+        switch (err.type) {
             case ErrorType.Bad_Token:
             case ErrorType.Unauthorized:
-                return new ApiResponse_1.AuthFailureResponse(error.message).send(res);
+                return new ApiResponse_1.AuthFailureResponse(err.message).send(res);
             case ErrorType.Internal:
-                return new ApiResponse_1.InternalErrorResponse(error.message).send(res);
+                return new ApiResponse_1.InternalErrorResponse(err.message).send(res);
             case ErrorType.No_Data:
             case ErrorType.Not_Found:
-                return new ApiResponse_1.NotFoundResponse(error.message).send(res);
+                return new ApiResponse_1.NotFoundResponse(err.message).send(res);
             case ErrorType.Bad_Request:
-                return new ApiResponse_1.BadRequestResponse(error.message).send(res);
+                return new ApiResponse_1.BadRequestResponse(err.message).send(res);
             default:
-                let message = error.message;
+                let message = err.message;
                 if (env_1.default.NODE_ENV === 'production')
                     message = 'Something wrong happened';
                 return new ApiResponse_1.InternalErrorResponse(message).send(res);
@@ -62,7 +62,7 @@ class BadRequestError extends ApiError {
 }
 exports.BadRequestError = BadRequestError;
 class NotFoundError extends ApiError {
-    constructor(message = 'Not') {
+    constructor(message = 'Not Found') {
         super(ErrorType.Bad_Request, message);
     }
 }
@@ -73,3 +73,9 @@ class NoDataError extends ApiError {
     }
 }
 exports.NoDataError = NoDataError;
+class AccessTokenError extends ApiError {
+    constructor(message = 'Invalid access token') {
+        super(ErrorType.Access_token, message);
+    }
+}
+exports.AccessTokenError = AccessTokenError;

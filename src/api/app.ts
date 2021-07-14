@@ -5,8 +5,8 @@ import chalk from 'chalk';
 import venv from '../config/env';
 import '../config/database';
 import { ApiError, InternalError, NotFoundError } from './core/ApiError';
+import routes from './modules/routes';
 // seeder
-// router
 
 process.on('uncaughtException', (err) => {
   console.log(chalk.red('Uncaught Exception ' + err));
@@ -16,6 +16,8 @@ process.on('uncaughtException', (err) => {
 const app = express();
 
 app.use(express.json());
+
+app.use('/api', routes);
 
 if (venv.NODE_ENV === 'development') {
   app.use(morgan('dev'));

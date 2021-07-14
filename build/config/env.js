@@ -10,6 +10,7 @@ const env = {
     NODE_ENV: process.env.NODE_ENV,
     DB_URI: process.env.DB_URI,
     DB_NAME: process.env.DB_NAME,
-    DB_CONNECTION_OPTION: process.env.DB_CONNECTION_OPTION
+    DB_CONNECTION_OPTION: process.env.DB_CONNECTION_OPTION,
+    API_SECRET: process.env.API_SECRET
 };
 exports.default = env;
