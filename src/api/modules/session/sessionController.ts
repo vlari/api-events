@@ -1,6 +1,6 @@
 // import { Types } from 'mongoose';
-import User from '../../../config/database/models/User';
-import UserDataService from '../../../config/database/services/userDataService';
+import User from  '../../../database/models/User';
+import UserDataService from '../../../database/services/userDataService';
 import { AuthFailureError, BadRequestError } from '../../core/ApiError';
 import { SuccessResponse } from '../../core/ApiResponse';
 import asyncHandler from "../../utils/asyncHandler";

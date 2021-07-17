@@ -1,6 +1,20 @@
-import User from '../../config/database/models/User';
-import { Request } from 'express';
+import User from '../../database/models/User';
+// import { Request } from 'express';
+import * as express from 'express';
 
-declare interface ProtectedRequest extends Request {
-    user: User;
+// declare namespace Express {
+//   export interface Request {
+//     user: User;
+//   }
+// }
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User
+    }
   }
+}
+// export interface ProtectedCustomRequest extends Request {
+//   user: User;
+// }

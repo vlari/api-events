@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const sessionRouter_1 = __importDefault(require("./session/sessionRouter"));
-const userRouter_1 = __importDefault(require("./user/userRouter"));
+const userController_1 = require("../user/userController");
+const auth_1 = __importDefault(require("../../middleware/auth"));
 const router = express_1.default.Router();
-router.use('/session', sessionRouter_1.default);
-router.use('/user', userRouter_1.default);
+router.route('/').patch(auth_1.default, userController_1.updateAccount);
 exports.default = router;

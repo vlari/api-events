@@ -1,7 +1,6 @@
 import User, { UserModel } from '../models/User';
 import { Types } from 'mongoose';
 
-
 export default class UserDataService {
   public static findById(id: Types.ObjectId): Promise<User | null> {
     return UserModel.findOne({ _id: id })
@@ -24,5 +23,12 @@ export default class UserDataService {
     return { user: createdUser.toObject() };
   }
 
+  public static async update(user: User): Promise<{ user: User }> {
+    await UserModel.updateOne({ _id: user._id }, { $set: { ...user } })
+      .lean()
+      .exec();
+
+    return { user };
+  }
 
 }

@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import chalk from 'chalk';
 
 import venv from '../config/env';
-import '../config/database';
+import '../database';
 import { ApiError, InternalError, NotFoundError } from './core/ApiError';
 import routes from './modules/routes';
 // seeder

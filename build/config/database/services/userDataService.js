@@ -18,5 +18,11 @@ class UserDataService {
         const createdUser = await User_1.UserModel.create(user);
         return { user: createdUser.toObject() };
     }
+    static async update(user) {
+        await User_1.UserModel.updateOne({ _id: user._id }, { $set: { ...user } })
+            .lean()
+            .exec();
+        return { user };
+    }
 }
 exports.default = UserDataService;
