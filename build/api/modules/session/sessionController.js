@@ -4,7 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signIn = exports.signUp = void 0;
-const userDataService_1 = __importDefault(require("../../../config/database/services/userDataService"));
+const userDataService_1 = __importDefault(require("../../../database/services/userDataService"));
+const collectionDataService_1 = __importDefault(require("../../../database/services/collectionDataService"));
 const ApiError_1 = require("../../core/ApiError");
 const ApiResponse_1 = require("../../core/ApiResponse");
 const asyncHandler_1 = __importDefault(require("../../utils/asyncHandler"));
@@ -23,10 +24,14 @@ exports.signUp = asyncHandler_1.default(async (req, res) => {
         phone: req.body.phone,
         address: req.body.address,
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
+    });
+    await collectionDataService_1.default.create({
+        userId: createdAccount.user._id,
+        events: [],
     });
     new ApiResponse_1.SuccessResponse('Signup Successful', {
-        user: createdAccount
+        user: createdAccount,
     }).send(res);
 });
 exports.signIn = asyncHandler_1.default(async (req, res) => {
@@ -43,6 +48,6 @@ exports.signIn = asyncHandler_1.default(async (req, res) => {
     const userId = registeredUser._id;
     const token = authUtil_1.getSignedToken({ id: userId }, (_a = env_1.default.API_SECRET) !== null && _a !== void 0 ? _a : '');
     new ApiResponse_1.SuccessResponse('', {
-        userToken: token
+        userToken: token,
     }).send(res);
 });

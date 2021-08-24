@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 // const crypto = require('crypto');
 import { AuthFailureError, InternalError } from '../core/ApiError';
 
-export const getAccessToken = (authorization?: string) => {
-  if (!authorization) throw new AuthFailureError('Invalid Authorization');
-  if (!authorization.startsWith('Bearer '))
-    throw new AuthFailureError('Invalid Authorization');
-  return authorization.split(' ')[1];
+export const getAccessToken = (authorization: string) => {
+  if (!authorization) return undefined;
+  if (authorization.startsWith('Bearer ')) {
+    return authorization.split(' ')[1];
+  }
 };
 
 export const getHashedPassword = async (password: string) => {

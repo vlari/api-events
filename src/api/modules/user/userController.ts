@@ -1,5 +1,6 @@
 import UserDataService from '../../../database/services/userDataService';
-import { AuthFailureError, BadRequestError } from '../../core/ApiError';
+import { AuthFailureError, BadRequestError, NotFoundError } from '../../core/ApiError';
+import CollectionDataService from '../../../database/services/collectionDataService';
 import { SuccessResponse } from '../../core/ApiResponse';
 import asyncHandler from '../../utils/asyncHandler';
 import { Types } from 'mongoose';
@@ -22,4 +23,29 @@ export const updateAccount = asyncHandler(async (req, res) => {
     {
         user: updatedUser
     }).send(res);
+});
+
+export const getSavedEvents = asyncHandler(async (req, res) => {
+    const savedEvents = await CollectionDataService.findByUserId(new Types.ObjectId(req.user?._id));
+
+    new SuccessResponse('', {
+        savedEvents
+    }).send(res);
+});
+
+export const deleteSavedEvent = asyncHandler(async (req, res) => {
+    const savedEvents = await CollectionDataService.findByUserId(new Types.ObjectId(req.user?._id));
+
+    if (!savedEvents) throw new BadRequestError('User not registered');
+
+    const savedCollection = savedEvents.events.map(event => {
+        return `${req.user?._id}` != req.params.id;
+    });
+
+    const index = savedEvents.events.indexOf(`${req.user?._id}`);
+    savedEvents.events.splice(index, 1);
+
+    await CollectionDataService.delete(req.user?._id!, savedEvents);
+
+    new SuccessResponse('', {}).send(res);
 });

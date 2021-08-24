@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const chalk_1 = __importDefault(require("chalk"));
 const env_1 = __importDefault(require("../config/env"));
-require("../config/database");
+require("../database");
 const ApiError_1 = require("./core/ApiError");
 const routes_1 = __importDefault(require("./modules/routes"));
 // seeder

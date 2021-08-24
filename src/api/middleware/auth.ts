@@ -7,7 +7,9 @@ import { getAccessToken } from '../utils/authUtil';
 import { AuthFailureError, AccessTokenError } from '../core/ApiError';
 
 const guard = asyncHandler(async (req, res, next) => {
+  if (!req.headers.authorization) throw new AuthFailureError('Invalid Authorization');
   let userToken = getAccessToken(req.headers.authorization);
+  if (!userToken) throw new AuthFailureError('Invalid Authorization');
 
   try {
     const token = jwt.verify(userToken, venv.API_SECRET ?? '') as JwtPayload;

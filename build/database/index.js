@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const chalk_1 = __importDefault(require("chalk"));
-const env_1 = __importDefault(require("../../config/env"));
+const env_1 = __importDefault(require("../config/env"));
 const connectionOptions = '?retryWrites=true&w=majority';
 const connectionString = `${env_1.default.DB_URI}/${env_1.default.DB_NAME}${connectionOptions}`;
 console.info('cstring: ', connectionString);

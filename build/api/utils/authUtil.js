@@ -3,14 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSignedToken = exports.isValidPassword = exports.getHashedPassword = exports.getAccessToken = void 0;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const crypto = require('crypto');
-const ApiError_1 = require("../core/ApiError");
 const getAccessToken = (authorization) => {
     if (!authorization)
-        throw new ApiError_1.AuthFailureError('Invalid Authorization');
-    if (!authorization.startsWith('Bearer '))
-        throw new ApiError_1.AuthFailureError('Invalid Authorization');
-    return authorization.split(' ')[1];
+        return undefined;
+    if (authorization.startsWith('Bearer ')) {
+        return authorization.split(' ')[1];
+    }
 };
 exports.getAccessToken = getAccessToken;
 const getHashedPassword = async (password) => {

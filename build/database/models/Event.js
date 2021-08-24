@@ -1,32 +1,15 @@
-import { model, Schema, Types } from 'mongoose';
-
-export default interface Event {
-    _id: Types.ObjectId,
-    name: string,
-    userId: string,
-    organizer: string,
-    description: string,
-    date: Date,
-    location: Location,
-    tickets: object,
-    tags: [string],
-    imageUrl: string,
-    liked: boolean
-}
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventModel = void 0;
+const mongoose_1 = require("mongoose");
 class Location {
-    latitude: string;
-    longitude: string;
-    fullAddress: string;
-
-    constructor(latitude: string, longitude: string, fullAddress: string) {
+    constructor(latitude, longitude, fullAddress) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.fullAddress = fullAddress;
     }
 }
-
-const eventSchema = new Schema({
+const eventSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please add an event name']
@@ -73,9 +56,7 @@ const eventSchema = new Schema({
         type: Boolean,
         default: false
     }
-},
-{
+}, {
     timestamps: true
 });
-
-export const EventModel = model<Event>('Event', eventSchema, 'events');
+exports.EventModel = mongoose_1.model('Event', eventSchema, 'events');

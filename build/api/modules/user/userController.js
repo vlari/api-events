@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateAccount = void 0;
-const userDataService_1 = __importDefault(require("../../../config/database/services/userDataService"));
+const userDataService_1 = __importDefault(require("../../../database/services/userDataService"));
 const ApiError_1 = require("../../core/ApiError");
 const ApiResponse_1 = require("../../core/ApiResponse");
 const asyncHandler_1 = __importDefault(require("../../utils/asyncHandler"));

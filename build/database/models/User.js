@@ -7,20 +7,20 @@ const userSchema = new mongoose_1.Schema({
         type: String,
     },
     dateOfBirth: {
-        type: Date
+        type: Date,
     },
     phone: String,
     address: {
         type: String,
     },
     email: {
-        type: String
+        type: String,
     },
     password: {
         type: String,
         minlength: 8,
         select: false,
-    }
+    },
 }, {
     timestamps: true,
 });

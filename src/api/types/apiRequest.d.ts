@@ -1,4 +1,5 @@
 import User from '../../database/models/User';
+import { UserRequestQuery } from '../middleware/eventFilter';
 // import { Request } from 'express';
 import * as express from 'express';
 
@@ -12,6 +13,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: User
+      queryParams?: UserRequestQuery
     }
   }
 }

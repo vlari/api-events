@@ -8,5 +8,3 @@ app.listen(port, () => {
   console.log(chalk.green(`Server running in ${venv.NODE_ENV} environment`));
   console.log(chalk.blue.inverse(`Server running on port: ${port}`));
 });
-
-// console.log('Hello World');

@@ -6,7 +6,6 @@ import venv from '../config/env';
 import '../database';
 import { ApiError, InternalError, NotFoundError } from './core/ApiError';
 import routes from './modules/routes';
-// seeder
 
 process.on('uncaughtException', (err) => {
   console.log(chalk.red('Uncaught Exception ' + err));

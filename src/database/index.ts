@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import chalk from 'chalk';
-import venv from '../../config/env';
+import venv from '../config/env';
 
 const connectionOptions = '?retryWrites=true&w=majority';
 const connectionString = `${venv.DB_URI}/${venv.DB_NAME}${connectionOptions}`;
